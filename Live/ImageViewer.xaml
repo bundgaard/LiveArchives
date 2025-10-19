@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Live"
         mc:Ignorable="d"
-        Title="ImageViewer" Height="450" Width="800">
+        Title="ImageViewer" Height="450" Width="800" Background="Black">
     <Window.DataContext>
         <local:ImageModelView/>
     </Window.DataContext>

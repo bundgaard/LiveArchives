@@ -15,7 +15,7 @@ namespace Live
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private ObfuscatedArchive.ObfuscatedArchive _obfuscatedArchive;
+        private ObfuscatedArchive.ObfuscatedArchive? _obfuscatedArchive;
         public ObfuscatedArchive.ObfuscatedArchive Archive
         {
             get => _obfuscatedArchive; set
@@ -38,14 +38,23 @@ namespace Live
 
         public ObservableCollection<ObfuscatedEntry> Entries => Archive?.Entries != null ? new ObservableCollection<ObfuscatedEntry>(Archive.Entries) : [];
         public ICommand ViewEntryCommand { get; }
-
+        public ICommand OnLoadCommand { get; }
+        private void OnLoad()
+        {
+            Archive = ObfuscatedArchive.ObfuscatedArchive.From(FilePath);
+        }
         public LiveViewModel()
         {
-            _obfuscatedArchive = ObfuscatedArchive.ObfuscatedArchive.From(_filePath);
+            
             ViewEntryCommand = new RelayCommand(obj =>
             {
                 if (obj == null) return;
                 ViewEntry((ObfuscatedEntry)obj);
+            });
+
+            OnLoadCommand = new RelayCommand(obj => 
+            {
+                OnLoad();
             });
         }
 

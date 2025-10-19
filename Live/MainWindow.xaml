@@ -11,12 +11,9 @@
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="TextBox">
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="FontSize" Value="14"/>
+            
+            
+            
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Gray"/>
         </Style>
@@ -45,8 +42,8 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="SELECT ARCHIVE" />
-        <TextBox Grid.Row="0" Grid.Column="1" />
-        <Button Grid.Row="0" Grid.Column="2" Content="..."/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}" />
+        <Button Grid.Row="0" Grid.Column="2" Content="Load" Command="{Binding OnLoadCommand}"/>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Entries}" AutoGenerateColumns="False">
             <DataGrid.Columns>
