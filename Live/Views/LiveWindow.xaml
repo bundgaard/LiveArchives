@@ -1,13 +1,14 @@
-﻿<Window x:Class="Live.MainWindow"
+﻿<Window x:Class="Live.LiveWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Live"
+        xmlns:vm="clr-namespace:Live.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Obfuscated Archive World" Height="450" Width="800" Closing="Window_Closing">
     <Window.DataContext>
-        <local:LiveViewModel/>
+        <vm:LiveViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -42,7 +43,11 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="SELECT ARCHIVE" />
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}" />
+        <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" ItemsSource="{Binding PreviousEntries, Mode=TwoWay}">
+            <ComboBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding OnLoadCommand}"/>
+            </ComboBox.InputBindings>
+        </ComboBox>
         <Button Grid.Row="0" Grid.Column="2" Content="Load" Command="{Binding OnLoadCommand}"/>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Entries}" AutoGenerateColumns="False">

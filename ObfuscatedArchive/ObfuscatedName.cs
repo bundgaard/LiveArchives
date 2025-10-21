@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ObfuscatedArchive
 {
@@ -28,7 +23,7 @@ namespace ObfuscatedArchive
             {
                 var position = reader.BaseStream.Position;
                 int size = 0;
-                
+
                 var nameLength = reader.ReadUInt32() ^ key.Value;
                 size += System.Runtime.InteropServices.Marshal.SizeOf(nameLength.GetType());
 
@@ -38,14 +33,21 @@ namespace ObfuscatedArchive
                 {
                     throw new ObfuscatedEntryException($"Failed to read name at file offset: {reader.BaseStream.Position}");
                 }
+                StringBuilder sb = new();
+
                 for (int i = 0; i < bytes.Length; ++i)
                 {
-                    bytes[i] ^= (byte)(key.Value >> (i << 3));
+                    var shiftAmount = (byte)(i << 3);
+                    sb.Append($"{shiftAmount.ToString()},({key.Value >> shiftAmount}) ");
+                    bytes[i] ^= (byte)(key.Value >> shiftAmount);
+
+
                 }
+                string shiftAMount = sb.ToString();
                 var name = Encoding.UTF8.GetString(bytes);
                 return new ObfuscatedName(name, [.. bytes], position, size);
             }
-            catch (EndOfStreamException e)
+            catch (EndOfStreamException)
             {
                 throw new ObfuscatedNameException("");
             }
