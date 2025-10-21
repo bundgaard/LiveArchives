@@ -12,9 +12,6 @@
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="TextBox">
-            
-            
-            
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Gray"/>
         </Style>
