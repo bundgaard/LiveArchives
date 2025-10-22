@@ -4,8 +4,28 @@
              xmlns:local="clr-namespace:Live"
              StartupUri="Views/LiveWindow.xaml">
     <Application.Resources>
-
+        <Color x:Key="TextWhite" A="255" R="255" G="255" B="255"/>
         <Color x:Key="Dark" A="255" R="78" G="78" B="78"/>
         <SolidColorBrush Color="{StaticResource Dark}" x:Key="DarkBrush"/>
+        <SolidColorBrush Color="{StaticResource TextWhite}" x:Key="TextWhiteBrush"/>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextWhiteBrush}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextWhiteBrush}"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextWhiteBrush}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextWhiteBrush}"/>
+        </Style>
     </Application.Resources>
 </Application>
