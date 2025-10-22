@@ -12,9 +12,6 @@
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="TextBox">
-            
-            
-            
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Gray"/>
         </Style>
@@ -24,7 +21,8 @@
         </Style>
         <Style TargetType="Button">
             <Setter Property="Width" Value="100"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="10,10,10,10"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -48,7 +46,18 @@
                 <KeyBinding Key="Enter" Command="{Binding OnLoadCommand}"/>
             </ComboBox.InputBindings>
         </ComboBox>
-        <Button Grid.Row="0" Grid.Column="2" Content="Load" Command="{Binding OnLoadCommand}"/>
+        <Button Grid.Row="0" Grid.Column="2" Content="Load" Command="{Binding OnLoadCommand}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Entries}" AutoGenerateColumns="False">
             <DataGrid.Columns>

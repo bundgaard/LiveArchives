@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Live.Services;
 using Live.ViewModels;
 
 namespace Live
@@ -30,21 +31,10 @@ namespace Live
             InitializeComponent();
             DataContext = new ImageModelView();
             var vm = DataContext as ImageModelView ?? new ImageModelView();
-            vm.Image = BytesToImage(bytes);
+            vm.Image = BitmapService.BytesToImage(bytes);
         }
 
 
-        private BitmapImage BytesToImage(byte[] buffer)
-        {
-            var image = new BitmapImage();
-            using var memoryStream = new MemoryStream(buffer);
-            image.BeginInit();
-            image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.StreamSource = memoryStream;
-            image.EndInit();
-            image.Freeze();
-            return image;
-        }
+
     }
 }

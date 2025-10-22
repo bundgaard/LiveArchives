@@ -75,8 +75,9 @@ namespace Live.ViewModels
 
             OnLoadCommand = new RelayCommand(obj =>
             {
+
                 OnLoad();
-            });
+            }, obj => !string.IsNullOrEmpty(FilePath));
             OnShutdown += (s, e) =>
             {
                 SaveLastEntries();
