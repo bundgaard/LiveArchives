@@ -33,17 +33,22 @@ namespace ObfuscatedArchive
                 {
                     throw new ObfuscatedEntryException($"Failed to read name at file offset: {reader.BaseStream.Position}");
                 }
-                StringBuilder sb = new();
+                StringBuilder shiftedBytes = new();
+                StringBuilder correctedBytes = new();
+                StringBuilder finishedBytes = new();
 
                 for (int i = 0; i < bytes.Length; ++i)
                 {
                     var shiftAmount = (byte)(i << 3);
-                    sb.Append($"{shiftAmount.ToString()},({key.Value >> shiftAmount}) ");
-                    bytes[i] ^= (byte)(key.Value >> shiftAmount);
+                    shiftedBytes.Append((i << 3));
+                    var correctedByte = (key.Value >> shiftAmount);
+                    correctedBytes.Append(key.Value >> shiftAmount);
 
+                    bytes[i] ^= (byte)correctedByte;
+                    finishedBytes.Append(bytes[i]);
 
                 }
-                string shiftAMount = sb.ToString();
+
                 var name = Encoding.UTF8.GetString(bytes);
                 return new ObfuscatedName(name, [.. bytes], position, size);
             }
