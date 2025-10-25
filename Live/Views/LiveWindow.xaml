@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Live"
         xmlns:vm="clr-namespace:Live.ViewModels"
+        xmlns:controls="clr-namespace:Live.Controls"
         mc:Ignorable="d"
         Title="Obfuscated Archive World" Height="450" Width="800" Closing="Window_Closing">
     <Window.DataContext>
@@ -16,48 +17,66 @@
             <Setter Property="BorderBrush" Value="Gray"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Padding" Value="5,0,10,0"/>
+            <Setter Property="Padding" Value="5,5,10,5"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Padding" Value="10,10,10,10"/>
-            <Setter Property="Margin" Value="10,10,10,10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+
+        <Style TargetType="DataGrid">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="RowBackground" Value="WhiteSmoke"/>
+            <Setter Property="AlternatingRowBackground" Value="LightGray"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.ColumnSpan="2" Background="WhiteSmoke" Width="1"/>
+                            <ContentPresenter Grid.Column="0" VerticalAlignment="Center" Margin="10,10,10,10"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+
         <TextBlock Grid.Row="0" Grid.Column="0" Text="SELECT ARCHIVE" />
-        <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" ItemsSource="{Binding PreviousEntries, Mode=TwoWay}">
+
+        <ComboBox Grid.Row="0"
+                  Grid.Column="1"
+                  Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}"
+                  IsEditable="True"
+                  ItemsSource="{Binding PreviousEntries, Mode=TwoWay}">
             <ComboBox.InputBindings>
                 <KeyBinding Key="Enter" Command="{Binding OnLoadCommand}"/>
             </ComboBox.InputBindings>
         </ComboBox>
-        <Button Grid.Row="0" Grid.Column="2" Content="Load" Command="{Binding OnLoadCommand}">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand"/>
-                        </Trigger>
-                        
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+
+        <Button Grid.Row="0" Grid.Column="2" Content="Load" Command="{Binding OnLoadCommand}" />
+
+
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Entries}" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -75,5 +94,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <controls:Hexview Grid.Row="3"/>
     </Grid>
 </Window>

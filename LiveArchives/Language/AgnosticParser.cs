@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace LiveArchives
+namespace LiveArchives.Language
 {
 
     internal class AgnosticParser
@@ -49,7 +49,7 @@ namespace LiveArchives
 
         public void Skip()
         {
-            while (Char.IsWhiteSpace(CurrentChar()))
+            while (char.IsWhiteSpace(CurrentChar()))
             {
                 Next();
             }

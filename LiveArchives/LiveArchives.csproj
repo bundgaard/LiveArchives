@@ -21,4 +21,9 @@
     <ProjectReference Include="..\ObfuscatedArchive\ObfuscatedArchive.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Language\Parser\" />
+    <Folder Include="Language\Tokens\" />
+  </ItemGroup>
+
 </Project>

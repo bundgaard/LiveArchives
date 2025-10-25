@@ -15,7 +15,7 @@ namespace Live
         public ImageViewer()
         {
             InitializeComponent();
-            SourceInitialized += Window_SourceInitialized;
+            Init(null);
         }
         private void Window_SourceInitialized(object? sender, System.EventArgs e)
         {
@@ -29,11 +29,19 @@ namespace Live
         public ImageViewer(byte[] bytes)
         {
             InitializeComponent();
+            Init(bytes);
+        }
+
+        private void Init(byte[]? bytes)
+        {
+            SourceInitialized += Window_SourceInitialized;
+
             DataContext = new ImageModelView();
+            if (bytes == null || bytes.Length == 0)
+                return;
             var vm = DataContext as ImageModelView ?? new ImageModelView();
             vm.Image = BitmapService.BytesToImage(bytes);
         }
-
 
 
     }

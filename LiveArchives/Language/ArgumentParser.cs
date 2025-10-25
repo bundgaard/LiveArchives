@@ -1,4 +1,4 @@
-﻿namespace LiveArchives
+﻿namespace LiveArchives.Language
 {
     internal class ArgumentParser
     {
