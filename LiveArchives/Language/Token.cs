@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace LiveArchives.Language
 {
@@ -25,7 +19,11 @@ namespace LiveArchives.Language
         LessEqual,
         Less,
         LogicalAnd,
-        BitwiseAnd
+        BitwiseAnd,
+        Increment,
+        Decrement,
+        Colon,
+        Comma
     }
     public class Token
     {
@@ -107,7 +105,7 @@ namespace LiveArchives.Language
                 var token = new Token(pos);
 
                 StringBuilder stringBuilder = new StringBuilder();
-                while (char.IsLetter(source.CurrentChar()))
+                while (char.IsLetterOrDigit(source.CurrentChar()))
                 {
                     stringBuilder.Append(source.CurrentChar());
                     source.NextChar();
@@ -193,6 +191,7 @@ namespace LiveArchives.Language
                 return token;
             }
 
+            // TODO:: Fix inconsistencies and potential bugs later.
             public static Token MultiToken(Source source)
             {
                 /*
@@ -221,7 +220,7 @@ namespace LiveArchives.Language
                         if (source.PeekChar() == '=')
                         {
                             sb.Append(source.NextChar());
-                            
+
                             currentChar = source.NextChar();
                             type = TokenType.GreaterEqual; // Placeholder
                             break;
@@ -285,6 +284,46 @@ namespace LiveArchives.Language
                         }
                         type = TokenType.BitwiseAnd;
                         source.NextChar();
+                        break;
+                    }
+                    if (currentChar == '+')
+                    {
+                        sb.Append(currentChar);
+                        if (source.PeekChar() == '+')
+                        {
+                            sb.Append(source.NextChar());
+                            currentChar = source.NextChar();
+                            type = TokenType.Increment;
+                            break;
+                        }
+                        type = TokenType.Plus;
+                        source.NextChar();
+                        break;
+                    }
+                    if (currentChar == '-')
+                    {
+                        sb.Append(currentChar);
+                        if (source.PeekChar() == '-')
+                        {
+                            sb.Append(source.NextChar());
+                            currentChar = source.NextChar();
+                            type = TokenType.Decrement;
+                            break;
+                        }
+                        type = TokenType.Minus;
+                        source.NextChar();
+                        break;
+                    }
+                    if (currentChar == ':')
+                    {
+                        sb.Append(currentChar);
+                        type = TokenType.Colon;
+                        break;
+                    }
+                    if (currentChar == ',')
+                    {
+                        sb.Append(currentChar);
+                        type = TokenType.Comma;
                         break;
                     }
                     currentChar = source.NextChar();
