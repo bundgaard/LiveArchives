@@ -10,6 +10,7 @@ namespace Live.Controls
             new SolidColorBrush(
                 Color.FromArgb(255, 255,255, 128)), 
             1.0);
+        
         static Hexview()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Hexview), new FrameworkPropertyMetadata(typeof(Hexview)));

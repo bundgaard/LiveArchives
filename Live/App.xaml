@@ -288,4 +288,9 @@
         </Style>
 
     </Application.Resources>
+    <JumpList.JumpList>
+        <JumpList>
+            <JumpTask Title="A Task 1" Description="Task1 Description"/>
+        </JumpList>
+    </JumpList.JumpList>
 </Application>
